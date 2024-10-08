@@ -1,6 +1,9 @@
-using namespace std;
+#ifndef PERSON_REGISTER
+#define PERSON_REGISTER
+
+#include "person.h"
+
 #include <string>
-#include "Person.h"
 
 class PersonRegister
 {
@@ -10,12 +13,12 @@ class PersonRegister
 
     PersonRegister(int max);
 
-    bool ReadRegister(PersonRegister &personRegister, string fileName);
+    bool ReadRegister(PersonRegister &personRegister, std::string fileName);
 
     bool AddToRegister(const Person* const);
-    bool AddToRegister(const string &name, const string &adress);
+    bool AddToRegister(const std::string &name, const std::string &adress);
     void RemoveEntry(Person *person);
-    Person *SearchByName(const string &name) const;
+    Person *SearchByName(const std::string &name) const;
     void Print();
 
     /// @brief Empties and deletes all Person Registry content
@@ -23,3 +26,4 @@ class PersonRegister
 
     ~PersonRegister();
 };
+#endif

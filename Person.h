@@ -1,14 +1,18 @@
-using namespace std;
-#include <iostream>
+#ifndef PERSON
+#define PERSON
+
+#include <string>
 
 class Person
 {
-    string name;
-    string address;
+    std::string name;
+    std::string address;
 
     public:
 
-    Person(string name, string address);
+    Person(std::string name, std::string address);
+    Person();
 
     void Print();
 };
+#endif
