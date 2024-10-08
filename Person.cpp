@@ -1,28 +1,17 @@
+#include <iostream>
+#include "person.h"
+
 using namespace std;
 
-#include "person.h"
-#include <iostream>
-
-class Person
+Person::Person(string name, string address)
 {
-    string name;
-    string address;
+    this->name = name;
+    this->address = address;
+}
 
-public:
+Person::Person() {}
 
-    Person(string name, string address)
-    {
-        this->name = name;
-        this->address = address;
-    }
-    
-    Person()
-    {
-        // implement constructor
-    }
-
-    void Print()
-    {
-        cout << name << ", " << address << endl;
-    }
-};
+void Person::Print()
+{
+    cout << name << ", " << address << endl;
+}

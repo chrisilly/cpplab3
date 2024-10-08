@@ -16,7 +16,7 @@ class PersonRegister
     bool ReadRegister(PersonRegister &personRegister, std::string fileName);
 
     bool AddToRegister(const Person* const);
-    bool AddToRegister(const std::string &name, const std::string &adress);
+    bool AddToRegister(const std::string &name, const std::string &address);
     void RemoveEntry(Person *person);
     Person *SearchByName(const std::string &name) const;
     void Print();
