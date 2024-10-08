@@ -2,13 +2,15 @@ using namespace std;
 #include <string>
 #include "Person.h"
 
-class PersonRegistry
+class PersonRegister
 {
     Person *persons;
 
     public:
 
-    PersonRegistry(int max);
+    PersonRegister(int max);
+
+    bool ReadRegister(PersonRegister &personRegister, string fileName);
 
     bool AddToRegister(const Person* const);
     bool AddToRegister(const string &name, const string &adress);
@@ -19,5 +21,5 @@ class PersonRegistry
     /// @brief Empties and deletes all Person Registry content
     void PlagueOfDeath();
 
-    ~PersonRegistry();
+    ~PersonRegister();
 };
