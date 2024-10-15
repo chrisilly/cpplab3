@@ -11,38 +11,37 @@ PersonRegister::PersonRegister(int max)
     personCount = 0;
 
     persons = new Person[max];
-
-    // isDefined = new bool[max];
-    // for (int i = 0; i < max; i++)
-    //     isDefined[i] = false;
+    for (int i = 0; i < max; i++)
+        persons[i] = Person("undefined", "undefined");
 }
 
-bool PersonRegister::AddToRegister(const Person* person)
+bool PersonRegister::AddToRegister(const Person person)
 {
-    // Does person already exist?
-
-    // Is the newly given person even a valid person?
-    Person *newPerson = new Person(*person);
-    if(newPerson == nullptr) return false;
-
     // Is the personRegister full?
-    if(personCount >= size)
-    {
-        persons -= personCount;
-        personCount = 0;
-    }
+    // if(personCount >= size)
+    // {
+    //     persons -= personCount;
+    //     personCount = 0;
+    // }
 
     // Add new person
-    *persons = *new Person(*person);
-    personCount++;
-    persons++;
+    // *persons = Person(*person);
+    // personCount++;
+    // persons++;
+
+    persons[++personCount] = person;
+
+    // Lisa's code -- works because she made `name` and `address` public
+    // persons[personCount].name = person->name;
+    // persons[personCount].address = person->address;
+    // personCount++;
 
     return true;
 }
 
 bool PersonRegister::AddToRegister(const string &name, const string &address)
 {
-    for (Person *pointer = persons; pointer != persons+size; ++pointer)
+    for (Person *pointer = persons; pointer < persons+size; ++pointer)
     {
         *pointer = Person(name, address); 
         return true;
@@ -63,7 +62,7 @@ void PersonRegister::RemoveEntry(Person *person)
 
 void PersonRegister::Print()
 {
-    for (Person *pointer = persons; pointer != persons+size; ++pointer)
+    for (Person *pointer = persons; pointer < persons+size; ++pointer)
         pointer->Print();
 }
 
@@ -74,5 +73,5 @@ void PersonRegister::PlagueOfDeath()
 
 PersonRegister::~PersonRegister()
 {
-    // Destructor code
+    delete[] persons;
 }

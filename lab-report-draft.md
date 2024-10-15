@@ -98,6 +98,31 @@ This assignment is gonna make me cry.
 
 I rapid-fired some attempts to solve the "operands are different" error. Changing the syntax from `persons[i]` to `*persons` (Again, using dereferencing) allowed me to assign it to a dereferenced version of the input argument. At first I got an access violation error though, which some stackoverflow nerd said was because the array content was uninitialized so I changed the line to `*new Person(*person)`—a dereferenced copy of the dereferenced method argument. It worked, so I'm keeping it 🙂
 
+### 15 October
+
+Actually, it didn't work. Still getting access violation error. End me.
+
+Okay, I tried making a `Person *persons` array with a pre-determined list of `Person`s, and I still get the access violation. Not sure why.
+
+Aha. I changed the following:
+```cpp
+for (Person *pointer = persons; pointer != persons+size; ++pointer)
+        pointer->Print();
+```
+to this:
+```cpp
+for (Person *pointer = persons; pointer < persons+size; ++pointer)
+        pointer->Print();
+```
+
+The former block was code handed out from the teacher via the assignment's Canvas page. Whereas it did not work before, now it does 🙂 Do you understand how frustrating it is when code and examples provided to us—whether they are literal *requirements* or exampes meant to *aid* us—do not work? **Please forgive me for assuming that they would in fact work and stand as decent examples of best practice and solid code.** 
+
+Whoever wrote this assignment, never write another assignment in your life again please.
+
+Making the `AddToRegister` method take a `const Person` as opposed to a `const Person* const` makes `persons[++personCount] = person;` work *just* fine. Am I allowed to do this? Why the fuck is it made the other way to begin with, it seems dumb as hell Jesus Christ.
+
+
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string

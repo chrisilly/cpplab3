@@ -31,9 +31,10 @@ bool Program::ReadRegister(PersonRegister &personRegister, string fileName)
             while (line.length() == 0 && getline(myfile, line))
                 ; // what?
             string name(line);
-            string adress;
-            getline(myfile, adress);
-            personRegister.AddToRegister(&Person(name, adress));
+            string address;
+            getline(myfile, address);
+            // Person entry(name, address);
+            personRegister.AddToRegister(Person(name, address));
         }
         myfile.close();
         return true;

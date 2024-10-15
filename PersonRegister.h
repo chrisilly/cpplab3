@@ -8,7 +8,6 @@
 class PersonRegister
 {
     Person *persons;
-    bool *isDefined; // keeps track of which slots in the ´persons´ array are occupied
     int personCount;
     int size;
 
@@ -16,7 +15,7 @@ class PersonRegister
 
     PersonRegister(int max);
 
-    bool AddToRegister(const Person* person);
+    bool AddToRegister(const Person person);
     bool AddToRegister(const std::string &name, const std::string &address);
     void RemoveEntry(Person *person);
     Person *SearchByName(const std::string &name) const;
