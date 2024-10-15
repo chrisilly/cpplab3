@@ -75,6 +75,31 @@ https://stackoverflow.com/questions/6995572/using-multiple-cpp-files-in-c-progra
 
 more naming conventions: https://www.geeksforgeeks.org/naming-convention-in-c/
 
+### 14 October
+
+The following syntax (given in the handout) was confusing: `bool LäggTill(const Person* const)`
+
+A teacher not affiliated with the course explained that an argument name should follow, and ideally should always be detailed in the `.h` file. I.e. it should have looked like this when you handed it out to us: `bool AddToRegister(const Person* const person)`
+
+[CJ's image](https://discord.com/channels/1053434127979909151/1053457479733882972/1293265408517869671) explained very clearly that the argument in this method is a `const pointer` pointing to `const Person`[^2]. Thank you CJ 🙏
+
+CJ also writes:
+> Detta är rörigt även för mig, och jag tycker uppgiften borde ha haft bara const Person*. Pekaren i sig själv behöver inte vara const.[^3]
+
+So I'm going to just modify this method to my liking.
+
+In any case, I can't set `persons[personCount++] = person;` because the operand `persons[personCount]` is a `Person` whereas `person` is a `const Person*`. I don't know wtf y'all expect from me.
+
+I have had too much friction and trouble just trying to use basic operators that do not work because I do not understand the structure of c++ and the nature of pointers and how y'all want me to work with them. This assignment can suck my ass.
+
+How come `new Person(*person)`, where `person` is a `const Person *`, is a pointer and not a `Person` when I'm literally calling the `Person` constructor? Hm?? Please explain.
+
+This assignment is gonna make me cry.
+
+I rapid-fired some attempts to solve the "operands are different" error. Changing the syntax from `persons[i]` to `*persons` (Again, using dereferencing) allowed me to assign it to a dereferenced version of the input argument. At first I got an access violation error though, which some stackoverflow nerd said was because the array content was uninitialized so I changed the line to `*new Person(*person)`—a dereferenced copy of the dereferenced method argument. It worked, so I'm keeping it 🙂
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string
+[^2]: https://stackoverflow.com/questions/1143262/what-is-the-difference-between-const-int-const-int-const-and-int-const/31331389#31331389
+[^3]: https://discord.com/channels/1053434127979909151/1053457479733882972/1293266692285136988

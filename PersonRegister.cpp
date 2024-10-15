@@ -1,6 +1,5 @@
 #include "personregister.h"
 
-#include <fstream>
 #include <iostream>
 
 using namespace std;
@@ -8,43 +7,49 @@ using namespace std;
 PersonRegister::PersonRegister(int max)
 {
     // Constructor code
+    this->size = max;
+    personCount = 0;
+
     persons = new Person[max];
+
+    // isDefined = new bool[max];
+    // for (int i = 0; i < max; i++)
+    //     isDefined[i] = false;
 }
 
-// bool PersonRegister::ReadRegister(PersonRegister &personRegister, string fileName)
-// {
-//     string line;
-//     ifstream myfile(fileName);
-//     if (myfile.is_open())
-//     {
-//         while (getline(myfile, line))
-//         {
-//             while (line.length() == 0 && getline(myfile, line))
-//                 ; // what?
-//             string name(line);
-//             string adress;
-//             getline(myfile, adress);
-//             personRegister.AddToRegister(&Person(name, adress));
-//         }
-//         myfile.close();
-//         return true;
-//     }
-//     else 
-//     {
-//         cout << "Unable to open file";
-//         return false;
-//     }
-// }
+bool PersonRegister::AddToRegister(const Person* person)
+{
+    // Does person already exist?
 
-// bool PersonRegister::AddToRegister(const Person* const)
-// {
-//     // code
-// }
+    // Is the newly given person even a valid person?
+    Person *newPerson = new Person(*person);
+    if(newPerson == nullptr) return false;
 
-// bool PersonRegister::AddToRegister(const string &name, const string &address)
-// {
-//     // code
-// }
+    // Is the personRegister full?
+    if(personCount >= size)
+    {
+        persons -= personCount;
+        personCount = 0;
+    }
+
+    // Add new person
+    *persons = *new Person(*person);
+    personCount++;
+    persons++;
+
+    return true;
+}
+
+bool PersonRegister::AddToRegister(const string &name, const string &address)
+{
+    for (Person *pointer = persons; pointer != persons+size; ++pointer)
+    {
+        *pointer = Person(name, address); 
+        return true;
+    }
+    
+    return false;
+}
 
 void PersonRegister::RemoveEntry(Person *person)
 {
@@ -58,8 +63,8 @@ void PersonRegister::RemoveEntry(Person *person)
 
 void PersonRegister::Print()
 {
-    for (int i = 0; i < 9; i++)
-        persons[i].Print();
+    for (Person *pointer = persons; pointer != persons+size; ++pointer)
+        pointer->Print();
 }
 
 void PersonRegister::PlagueOfDeath()
