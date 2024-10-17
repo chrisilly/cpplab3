@@ -14,5 +14,6 @@ class Person
     Person();
 
     void Print();
+    std::string getName();
 };
 #endif

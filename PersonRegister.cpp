@@ -56,10 +56,26 @@ void PersonRegister::RemoveEntry(Person *person)
     // code
 }
 
-// Person PersonRegister::*SearchByName(const string name)
-// {
-//     // code
-// }
+Person* PersonRegister::SearchByName(const string &name) const
+{
+    Person* target;
+
+    for (Person *pointer = persons; pointer < persons + size; ++pointer)
+    {
+        // string currentName = pointer->getName();
+        // cout << "currentName: " << currentName << endl;
+        // cout << "current pointer->getName(): " << pointer->getName() << endl;
+
+        if(pointer->getName() == name) 
+        {
+            cout << "Person " << name << " found." << endl;
+            return pointer;
+        }
+    }
+
+    cout << "Person " << name << " not found." << endl;
+    return nullptr;
+}
 
 void PersonRegister::Print()
 {

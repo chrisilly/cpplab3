@@ -121,7 +121,21 @@ Whoever wrote this assignment, never write another assignment in your life again
 
 Making the `AddToRegister` method take a `const Person` as opposed to a `const Person* const` makes `persons[++personCount] = person;` work *just* fine. Am I allowed to do this? Why the fuck is it made the other way to begin with, it seems dumb as hell Jesus Christ.
 
+### 17 October
 
+In what way is the `RemoveEntry()` method supposed to remove an entry? Wipe the name and address? That's what I'm going to assume.
+
+Today I learned that you can access a class's private variables if it looks like `Person PersonRegister::SearchByName(const string name)` but *not* if it looks like `Person PersonRegister::*SearchByName(const string name)`. I think the only difference is that the latter method returns a pointer instead of a `Person` object? I don't get why suddenly it loses access though. Either it's a syntax mistake or it's some wonky ass c++ stuff.
+
+Nevermind, it's supposed to be `Person* PersonRegister::SearchByName(const string &name)`. I tried this but while missing the `&` operator in the parameter, which is why it didn't work at first.
+
+So, in order to search by name, I need to compare a string to the `Person` object name. The `SearchByName()` method is in the `PersonRegister` class, though, so in order to compare them I introduced a `std::string GetName() {return name}` getter method in the `Person` class. However, in my pointer for-loop, `pointer->GetName()` doesn't seem to return a defined value?
+
+When adding the line `cout << "current pointer->getName(): " << pointer->getName() << endl;`, nothing is printed at all, even though the break point stops on the line—so it *is* being run. Weird! And when using `watch` in VS Code, it at least seems like `pointer` does iterate through and its `name` *does* change.
+
+I asked for help on [Discord](https://discord.com/channels/1053434127979909151/1053457479733882972/1296434723027157063) (correct decision—I have adapted) and got some insight as to what tests I can run to find the problem. The problem seems to be due to the way `cin` works—or the way I handle it—when getting the parameter (string) values from the user.
+
+When testing the method using hard-coded strings, it worked just fine. Replacing my `cin >> input`s with `getline(cin, input)`s solved my problem. `getline` removes the newline character from the input before saving it to your variable I've now learned, which I assume must have been the issue.
 
 <!--  -->
 

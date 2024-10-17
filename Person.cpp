@@ -15,3 +15,5 @@ void Person::Print()
 {
     cout << name << ", " << address << endl;
 }
+
+string Person::getName() { return name; }
