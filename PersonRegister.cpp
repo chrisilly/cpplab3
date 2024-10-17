@@ -53,7 +53,7 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
 
 void PersonRegister::RemoveEntry(Person *person)
 {
-    // code
+    person->Wipe();
 }
 
 Person* PersonRegister::SearchByName(const string &name) const

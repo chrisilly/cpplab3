@@ -13,6 +13,8 @@ class Person
     Person(std::string name, std::string address);
     Person();
 
+    void Wipe();
+
     void Print();
     std::string getName();
 };

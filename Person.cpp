@@ -16,4 +16,9 @@ void Person::Print()
     cout << name << ", " << address << endl;
 }
 
+void Person::Wipe()
+{
+    name = address = "";
+}
+
 string Person::getName() { return name; }
