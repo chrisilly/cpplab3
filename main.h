@@ -7,6 +7,7 @@ namespace Program
 {
 
 bool ReadRegister(PersonRegister &personRegister, std::string fileName);
+void Test(PersonRegister personRegister);
 
 }
 

@@ -25,29 +25,22 @@ bool PersonRegister::AddToRegister(const Person person)
     }
 
     // Add new person
-    // *persons = Person(*person);
-    // personCount++;
-    // persons++;
-
-    // Add new person
     persons[personCount++] = person;
-
-    // Lisa's code -- works because she made `name` and `address` public
-    // persons[personCount].name = person->name;
-    // persons[personCount].address = person->address;
-    // personCount++;
 
     return true;
 }
 
 bool PersonRegister::AddToRegister(const string &name, const string &address)
 {
-    for (Person *pointer = persons; pointer < persons+size; ++pointer)
+    if(personCount >= size)
     {
-        *pointer = Person(name, address); 
-        return true;
+        // persons -= personCount;
+        personCount = 0;
     }
-    
+
+    persons[personCount++] = Person(name, address);
+    return true;
+
     return false;
 }
 

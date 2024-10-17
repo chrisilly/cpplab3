@@ -5,19 +5,74 @@
 #include <fstream>
 
 using namespace std;
+using namespace Program;
 
 int maxSize = 10;
 string testName = "Chell";
 string testAddress = "Aperture";
+bool running = true;
 
 int main()
 {
+    running = true;
+
     Person person(testName, testAddress);
     person.Print();
 
     PersonRegister magnusArchives(maxSize);
     Program::ReadRegister(magnusArchives, "PersonExempel.txt");
     magnusArchives.Print();
+
+    while (running)
+    {
+        string input;
+        getline(cin, input); // this should use `tolower()` or something
+        // cin >> input; // this should use `tolower()` or something
+
+        if(input == "quit")
+            running = false;
+        else if(input == "search");
+        else if(input == "add")
+        {
+            string name, address;
+            cout << "Enter name: "; getline(cin, name);
+            cout << "Enter address: "; getline(cin, address);
+            // cout << "Enter name: "; cin >> name;
+            // cout << "Enter address: "; cin >> address;
+            Person newPerson(name, address);
+            
+            magnusArchives.AddToRegister(newPerson);
+            newPerson.Print();
+        }
+        else if(input == "remove")
+        {
+            string name;
+            cout << "Enter name of person to remove: "; getline(cin, name);
+            // cout << "Enter name of person to remove: "; cin >> name;
+            Person* victim = magnusArchives.SearchByName(name);
+
+            // Is there even a person with that name? (if not, skip procedure)
+            if(victim == nullptr) continue;
+
+            // Remove the specified person
+            magnusArchives.RemoveEntry(victim);
+        }
+        else if(input == "print");
+        else if(input == "printall")
+            magnusArchives.Print();
+        else if(input == "clear")
+            magnusArchives.PlagueOfDeath();
+        else if(input == "test")
+            Test(magnusArchives);
+    }
+}
+
+void Program::Test(PersonRegister personRegister)
+{
+    personRegister.AddToRegister("willy", "willstreet");
+    personRegister.Print();
+    personRegister.RemoveEntry(personRegister.SearchByName("willy"));
+    personRegister.Print();
 }
 
 bool Program::ReadRegister(PersonRegister &personRegister, string fileName)
