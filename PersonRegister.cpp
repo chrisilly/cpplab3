@@ -18,18 +18,19 @@ PersonRegister::PersonRegister(int max)
 bool PersonRegister::AddToRegister(const Person person)
 {
     // Is the personRegister full?
-    // if(personCount >= size)
-    // {
-    //     persons -= personCount;
-    //     personCount = 0;
-    // }
+    if(personCount >= size)
+    {
+        // persons -= personCount;
+        personCount = 0;
+    }
 
     // Add new person
     // *persons = Person(*person);
     // personCount++;
     // persons++;
 
-    persons[++personCount] = person;
+    // Add new person
+    persons[personCount++] = person;
 
     // Lisa's code -- works because she made `name` and `address` public
     // persons[personCount].name = person->name;
