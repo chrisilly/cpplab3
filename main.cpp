@@ -27,7 +27,6 @@ int main()
     {
         string input;
         getline(cin, input); // this should use `tolower()` or something
-        // cin >> input; // this should use `tolower()` or something
 
         if(input == "quit")
             running = false;
@@ -46,8 +45,6 @@ int main()
  
             cout << "Enter name: "; getline(cin, name);
             cout << "Enter address: "; getline(cin, address);
-            // cout << "Enter name: "; cin >> name;
-            // cout << "Enter address: "; cin >> address;
             Person newPerson(name, address);
             
             magnusArchives.AddToRegister(newPerson);
@@ -57,7 +54,6 @@ int main()
         {
             string name;
             cout << "Enter name of person to remove: "; getline(cin, name);
-            // cout << "Enter name of person to remove: "; cin >> name;
             Person* victim = magnusArchives.SearchByName(name);
 
             // Is there even a person with that name? (if not, skip procedure)
@@ -66,7 +62,6 @@ int main()
             // Remove the specified person
             magnusArchives.RemoveEntry(victim);
         }
-        else if(input == "print");
         else if(input == "printall")
             magnusArchives.Print();
         else if(input == "clear")
@@ -109,10 +104,10 @@ void Program::Test(PersonRegister personRegister)
     personRegister.RemoveEntry(personRegister.SearchByName(victimName));
     personRegister.Print();
 
-    // remove non-existent person
-    cout << "Removing " << name << " from the register... (again)" << endl;
-    personRegister.RemoveEntry(&dummy);
-    personRegister.Print();
+    // remove non-existent person // this doesn't work like this:
+    // cout << "Removing " << name << " from the register... (again)" << endl;
+    // personRegister.RemoveEntry(&dummy);
+    // personRegister.Print();
     // remove non-existent person via SearchByName
     cout << "Removing " << victimName << " from the register... (again)";
     personRegister.RemoveEntry(personRegister.SearchByName(victimName));

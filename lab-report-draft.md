@@ -137,6 +137,7 @@ I asked for help on [Discord](https://discord.com/channels/1053434127979909151/1
 
 When testing the method using hard-coded strings, it worked just fine. Replacing my `cin >> input`s with `getline(cin, input)`s solved my problem. `getline` removes the newline character from the input before saving it to your variable I've now learned, which I assume must have been the issue.
 
+### 20 October
 When searching for a name that doesn't exist (using `SearchByName()`), I get a read access violation error. `nullptr` is being returned. I added safeguard code, but I *sometimes* get `read access violation` when I do `PersonRegister::PlagueOfDeath()` (which is my function that clears the register)? It seems to throw the exception on the *second* clear. Nope. It's always at the end of running the `Test()` method a second time.
 
 > The (major) advantage of using references is that you don't have to worry about pointer safety, i.e. whether or not your pointer is pointing to valid memory.[^4]
@@ -156,6 +157,8 @@ I'm reading all this because when I pass a `Person dummy` object into my `Person
 Reading up on the C++ core guidelines, though, it probably should look like: `AddToRegister(const Person& person)`, because passing `Person` objects by value might get expensive compared to passing them by reference to const[^5]. I can find *nothing* on passing pointers as parameters.
 
 It also says in general that instead of using `char*` or `const char*` to represent strings, you should use `zstring` or `czstring` in order to clarify intent[^6].
+
+I'm so tired. I don't know what is expected of me. This assignment has me so defeated.
 
 <!--  -->
 
