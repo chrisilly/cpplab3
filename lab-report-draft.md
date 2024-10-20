@@ -139,8 +139,29 @@ When testing the method using hard-coded strings, it worked just fine. Replacing
 
 When searching for a name that doesn't exist (using `SearchByName()`), I get a read access violation error. `nullptr` is being returned. I added safeguard code, but I *sometimes* get `read access violation` when I do `PersonRegister::PlagueOfDeath()` (which is my function that clears the register)? It seems to throw the exception on the *second* clear. Nope. It's always at the end of running the `Test()` method a second time.
 
+> The (major) advantage of using references is that you don't have to worry about pointer safety, i.e. whether or not your pointer is pointing to valid memory.[^4]
+
+In reference to using pointers as input parameters instead of references. Why are you making us do this. Continuation:
+
+> The (slight) advantage of using pointers is that within the body of your function, it's immediately obvious that you're using a pointer and that any changes you make to the value of the memory it points to will be present in the calling code. With references, you can only tell whether you're using a reference or a local copy by looking at the function declaration to see if there's an & symbol.
+>
+> I won't go into a full tutorial on references; if you're learning C++, then you presumably already have access to reference material.
+>
+> Regarding your second question, I've usually seen it used in situations where your function has to conform to a particular interface, but a specific implementation doesn't actually use the argument that the interface required to be passed in. If you don't specify a name for the argument in your function implementation, then it makes it clear to anybody else reading the code that it won't be used in your function.
+>
+> It will also stop the compiler warning you about unused arguments. Getting rid of compiler warnings is a good thing, because it makes it easier to spot any new warnings you introduce that indicate a genuine problem with your code.
+
+I'm reading all this because when I pass a `Person dummy` object into my `PersonRegister::RemoveEntry(Person* person)` with the syntax `RemoveEntry(&dummy)`, it doesn't actually change the `dummy` object. This is the same issue I had with the `AddToRegister(Person* person)` method before I changed it to `AddToRegister(const Person person)`. 
+
+Reading up on the C++ core guidelines, though, it probably should look like: `AddToRegister(const Person& person)`, because passing `Person` objects by value might get expensive compared to passing them by reference to const[^5]. I can find *nothing* on passing pointers as parameters.
+
+It also says in general that instead of using `char*` or `const char*` to represent strings, you should use `zstring` or `czstring` in order to clarify intent[^6].
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string
 [^2]: https://stackoverflow.com/questions/1143262/what-is-the-difference-between-const-int-const-int-const-and-int-const/31331389#31331389
 [^3]: https://discord.com/channels/1053434127979909151/1053457479733882972/1293266692285136988
+[^4]: https://cplusplus.com/forum/general/89373/#msg480130
+[^5]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f15-prefer-simple-and-conventional-ways-of-passing-information
+[^6]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#slstr3-use-zstring-or-czstring-to-refer-to-a-c-style-zero-terminated-sequence-of-characters

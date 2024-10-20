@@ -91,7 +91,7 @@ void Program::Test(PersonRegister personRegister)
 
     // add person
     cout << "Adding " << name << ", " << address << " to the register..." << endl;
-    personRegister.AddToRegister(dummy);
+    personRegister.AddToRegister(&dummy);
     cout << "Adding " << victimName << ", " << victimAddress << " to the register..." << endl;
     personRegister.AddToRegister(victim);
     personRegister.Print();
@@ -138,7 +138,7 @@ bool Program::ReadRegister(PersonRegister &personRegister, string fileName)
             string address;
             getline(myfile, address);
             // Person entry(name, address);
-            personRegister.AddToRegister(Person(name, address));
+            personRegister.AddToRegister(&Person(name, address));
         }
         myfile.close();
         return true;

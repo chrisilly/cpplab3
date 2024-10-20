@@ -17,6 +17,23 @@ PersonRegister::PersonRegister(const int max)
         persons[i] = Person("undefined", "undefined");
 }
 
+bool PersonRegister::AddToRegister(const Person* person)
+{
+    if(person == nullptr) return false;
+
+    // Is the personRegister full?
+    if(personCount >= size)
+    {
+        // persons -= personCount;
+        personCount = 0;
+    }
+
+    // Add new person
+    persons[personCount++] = *person;
+
+    return true;
+}
+
 bool PersonRegister::AddToRegister(const Person person)
 {
     // Is the personRegister full?
@@ -90,6 +107,7 @@ void PersonRegister::Print()
     cout << divider;
 }
 
+/// @brief Clears the register; empties it.
 void PersonRegister::PlagueOfDeath()
 {
     for (Person *pointer = persons; pointer < persons+size; ++pointer)

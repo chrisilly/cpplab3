@@ -17,6 +17,7 @@ class PersonRegister
 
     bool AddToRegister(const Person person);
     bool AddToRegister(const std::string &name, const std::string &address);
+    bool AddToRegister(const Person* person);
     void RemoveEntry(Person *person);
     Person *SearchByName(const std::string &name) const;
     void Print();
