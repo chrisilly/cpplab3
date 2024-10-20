@@ -78,7 +78,8 @@ void PersonRegister::Print()
 
 void PersonRegister::PlagueOfDeath()
 {
-    // code
+    for (Person *pointer = persons; pointer < persons+size; ++pointer)
+        pointer->Wipe();
 }
 
 PersonRegister::~PersonRegister()
