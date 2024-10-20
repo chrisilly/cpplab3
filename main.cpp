@@ -31,10 +31,19 @@ int main()
 
         if(input == "quit")
             running = false;
-        else if(input == "search");
+        else if(input == "search")
+        {
+            string name;
+            cout << "Enter name: "; getline(cin, name);
+            Person* searchResult = magnusArchives.SearchByName(name);
+
+            // Don't print unless you find a person
+            if(searchResult != nullptr) searchResult->Print();
+        }
         else if(input == "add")
         {
             string name, address;
+ 
             cout << "Enter name: "; getline(cin, name);
             cout << "Enter address: "; getline(cin, address);
             // cout << "Enter name: "; cin >> name;
@@ -69,9 +78,49 @@ int main()
 
 void Program::Test(PersonRegister personRegister)
 {
-    personRegister.AddToRegister("willy", "willstreet");
+    string name = "Willy";
+    string address = "Willstreet";
+    string victimName = "RemoveMe";
+    string victimAddress = victimName;
+    Person dummy(name, address);
+    Person victim(victimName, victimAddress);
+
+    // search for nonexistent person
+    cout << "Searching for " << name << "..." << endl;
+    personRegister.SearchByName(name);
+
+    // add person
+    cout << "Adding " << name << ", " << address << " to the register..." << endl;
+    personRegister.AddToRegister(dummy);
+    cout << "Adding " << victimName << ", " << victimAddress << " to the register..." << endl;
+    personRegister.AddToRegister(victim);
     personRegister.Print();
-    personRegister.RemoveEntry(personRegister.SearchByName("willy"));
+
+    // search for existent person
+    cout << "Searching for " << name << "..." << endl;
+    personRegister.SearchByName(name);
+
+    // remove existing person
+    cout << "Removing " << name << " from the register..." << endl;
+    personRegister.RemoveEntry(&dummy);
+    personRegister.Print();
+    // remove existing person via SearchByName
+    cout << "Removing " << victimName << " from the register...";
+    personRegister.RemoveEntry(personRegister.SearchByName(victimName));
+    personRegister.Print();
+
+    // remove non-existent person
+    cout << "Removing " << name << " from the register... (again)" << endl;
+    personRegister.RemoveEntry(&dummy);
+    personRegister.Print();
+    // remove non-existent person via SearchByName
+    cout << "Removing " << victimName << " from the register... (again)";
+    personRegister.RemoveEntry(personRegister.SearchByName(victimName));
+    personRegister.Print();
+
+    // clear register
+    cout << "Clearing register..." << endl;
+    personRegister.PlagueOfDeath();
     personRegister.Print();
 }
 
