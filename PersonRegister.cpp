@@ -46,7 +46,10 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
 
 void PersonRegister::RemoveEntry(Person *person)
 {
-    person->Wipe();
+    if(person != nullptr)
+        person->Wipe();
+    else
+        cout << "Cannot remove nullptr" << endl;
 }
 
 Person* PersonRegister::SearchByName(const string &name) const
