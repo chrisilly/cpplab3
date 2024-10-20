@@ -4,7 +4,9 @@
 
 using namespace std;
 
-PersonRegister::PersonRegister(int max)
+const string divider = "----------------------------------\n";
+
+PersonRegister::PersonRegister(const int max)
 {
     // Constructor code
     this->size = max;
@@ -75,8 +77,17 @@ Person* PersonRegister::SearchByName(const string &name) const
 
 void PersonRegister::Print()
 {
+    cout << divider;
+
     for (Person *pointer = persons; pointer < persons+size; ++pointer)
+    {
+        if(pointer == nullptr)
+            throw new exception("Tried printing nullptr.");
+        
         pointer->Print();
+    }
+    
+    cout << divider;
 }
 
 void PersonRegister::PlagueOfDeath()

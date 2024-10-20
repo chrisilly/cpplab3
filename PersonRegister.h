@@ -13,7 +13,7 @@ class PersonRegister
 
     public:
 
-    PersonRegister(int max);
+    PersonRegister(const int max);
 
     bool AddToRegister(const Person person);
     bool AddToRegister(const std::string &name, const std::string &address);
