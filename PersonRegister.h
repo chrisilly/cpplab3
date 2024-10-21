@@ -18,9 +18,9 @@ class PersonRegister
     bool AddToRegister(const Person person);
     bool AddToRegister(const std::string &name, const std::string &address);
     bool AddToRegister(const Person* person);
-    void RemoveEntry(Person *person);
+    void RemoveFromRegister(Person *person);
     Person *SearchByName(const std::string &name) const;
-    Person* FreeSearch(const std::string& searchTerm, Person* startOnNext) const;
+    Person* SearchByAny(const std::string& searchTerm, Person* startOnNext) const;
     void Print();
 
     /// @brief Empties and deletes all Person Registry content

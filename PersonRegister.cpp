@@ -63,7 +63,7 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
     return false;
 }
 
-void PersonRegister::RemoveEntry(Person *person)
+void PersonRegister::RemoveFromRegister(Person *person)
 {
     if(person != nullptr)
         person->Wipe();
@@ -92,7 +92,7 @@ Person* PersonRegister::SearchByName(const string &name) const
     return nullptr;
 }
 
-Person* PersonRegister::FreeSearch(const string& searchTerm, Person* startOnNext) const
+Person* PersonRegister::SearchByAny(const string& searchTerm, Person* startOnNext) const
 {
     string personData;
     string startOnNextData;

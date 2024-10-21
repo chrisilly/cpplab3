@@ -45,7 +45,7 @@ int main()
             cout << "Enter search: "; getline(cin, searchTerm);
             
             #pragma region bad attempt at better code
-            // Person* searchResult1 = magnusArchives.FreeSearch(searchTerm, nullptr);
+            // Person* searchResult1 = magnusArchives.SearchByAny(searchTerm, nullptr);
             // Person* searchResult2 = nullptr;
             // Person* searchResult3 = nullptr;
 
@@ -56,7 +56,7 @@ int main()
 
             // for (Person** pointer = searchResults + 1; pointer < searchResults + 3; ++pointer)
             // {
-            //     *pointer = magnusArchives.FreeSearch(searchTerm, *searchResults);
+            //     *pointer = magnusArchives.SearchByAny(searchTerm, *searchResults);
             // }
             
             // for (Person** pointer = searchResults; pointer < searchResults + 3; ++pointer)
@@ -69,9 +69,9 @@ int main()
             #pragma endregion
 
             // Bad, defeated code below
-            Person* searchResult1 = magnusArchives.FreeSearch(searchTerm, nullptr);
-            Person* searchResult2 = magnusArchives.FreeSearch(searchTerm, searchResult1);
-            Person* searchResult3 = magnusArchives.FreeSearch(searchTerm, searchResult2);
+            Person* searchResult1 = magnusArchives.SearchByAny(searchTerm, nullptr);
+            Person* searchResult2 = magnusArchives.SearchByAny(searchTerm, searchResult1);
+            Person* searchResult3 = magnusArchives.SearchByAny(searchTerm, searchResult2);
             
             if(searchResult1 != nullptr) searchResult1->Print();
             if(searchResult2 != nullptr) searchResult2->Print();
@@ -98,7 +98,7 @@ int main()
             if(victim == nullptr) continue;
 
             // Remove the specified person
-            magnusArchives.RemoveEntry(victim);
+            magnusArchives.RemoveFromRegister(victim);
         }
         else if(input == "printall")
             magnusArchives.Print();
@@ -135,20 +135,20 @@ void Program::Test(PersonRegister personRegister)
 
     // remove existing person
     cout << "Removing " << name << " from the register..." << endl;
-    personRegister.RemoveEntry(&dummy);
+    personRegister.RemoveFromRegister(&dummy);
     personRegister.Print();
     // remove existing person via SearchByName
     cout << "Removing " << victimName << " from the register...";
-    personRegister.RemoveEntry(personRegister.SearchByName(victimName));
+    personRegister.RemoveFromRegister(personRegister.SearchByName(victimName));
     personRegister.Print();
 
     // remove non-existent person // this doesn't work like this:
     // cout << "Removing " << name << " from the register... (again)" << endl;
-    // personRegister.RemoveEntry(&dummy);
+    // personRegister.RemoveFromRegister(&dummy);
     // personRegister.Print();
     // remove non-existent person via SearchByName
     cout << "Removing " << victimName << " from the register... (again)";
-    personRegister.RemoveEntry(personRegister.SearchByName(victimName));
+    personRegister.RemoveFromRegister(personRegister.SearchByName(victimName));
     personRegister.Print();
 
     // clear register
