@@ -39,6 +39,44 @@ int main()
             // Don't print unless you find a person
             if(searchResult != nullptr) searchResult->Print();
         }
+        else if(input == "freesearch")
+        {
+            string searchTerm;
+            cout << "Enter search: "; getline(cin, searchTerm);
+            
+            #pragma region bad attempt at better code
+            // Person* searchResult1 = magnusArchives.FreeSearch(searchTerm, nullptr);
+            // Person* searchResult2 = nullptr;
+            // Person* searchResult3 = nullptr;
+
+            // Person* searchResults[3];
+            // searchResults[0] = searchResult1;
+            // searchResults[1] = searchResult2;
+            // searchResults[2] = searchResult3;
+
+            // for (Person** pointer = searchResults + 1; pointer < searchResults + 3; ++pointer)
+            // {
+            //     *pointer = magnusArchives.FreeSearch(searchTerm, *searchResults);
+            // }
+            
+            // for (Person** pointer = searchResults; pointer < searchResults + 3; ++pointer)
+            // {
+            //     if(*pointer == nullptr)
+            //         cout << "Empty search result." << endl;
+            //     else
+            //         (*pointer)->Print();
+            // }
+            #pragma endregion
+
+            // Bad, defeated code below
+            Person* searchResult1 = magnusArchives.FreeSearch(searchTerm, nullptr);
+            Person* searchResult2 = magnusArchives.FreeSearch(searchTerm, searchResult1);
+            Person* searchResult3 = magnusArchives.FreeSearch(searchTerm, searchResult2);
+            
+            if(searchResult1 != nullptr) searchResult1->Print();
+            if(searchResult2 != nullptr) searchResult2->Print();
+            if(searchResult3 != nullptr) searchResult3->Print();
+        }
         else if(input == "add")
         {
             string name, address;

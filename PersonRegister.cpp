@@ -81,7 +81,7 @@ Person* PersonRegister::SearchByName(const string &name) const
         // cout << "currentName: " << currentName << endl;
         // cout << "current pointer->getName(): " << pointer->getName() << endl;
 
-        if(pointer->getName() == name) 
+        if(pointer->getName() == name)
         {
             cout << "Person " << name << " found." << endl;
             return pointer;
@@ -89,6 +89,34 @@ Person* PersonRegister::SearchByName(const string &name) const
     }
 
     cout << "Person " << name << " not found." << endl;
+    return nullptr;
+}
+
+Person* PersonRegister::FreeSearch(const string& searchTerm, Person* startOnNext) const
+{
+    string personData;
+    string startOnNextData;
+    bool started = false;
+
+    if(startOnNext == nullptr)
+        started = true;
+    else
+        startOnNextData = startOnNext->getData();
+
+    for (Person* pointer = persons; pointer < persons+size; ++pointer)
+    {
+        personData = pointer->getData();
+
+        if(started)
+            // Does the person data contain the search term? Is it a 'hit'?
+            if(pointer->getData().find(searchTerm) != string::npos) 
+                return pointer;
+
+        // Start checking for more hits after we've passed the startOnNext Person in the array 
+        if(startOnNextData == personData)
+            started = true;
+    }
+
     return nullptr;
 }
 
