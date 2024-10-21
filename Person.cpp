@@ -22,3 +22,6 @@ void Person::Wipe()
 }
 
 string Person::getName() { return name; }
+
+/// @return name and address in a single string
+string Person::getData() { return name + " " + address; }
