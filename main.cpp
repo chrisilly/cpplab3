@@ -19,6 +19,9 @@ int main()
     Person person(testName, testAddress);
     person.Print();
 
+    PersonWithPhoneNumber personWithPhoneNumber("testName", "testAddress", "0763149145");
+    personWithPhoneNumber.Print();
+
     PersonRegister magnusArchives(maxSize);
     Program::ReadRegister(magnusArchives, "PersonExempel.txt");
     magnusArchives.Print();

@@ -160,6 +160,72 @@ It also says in general that instead of using `char*` or `const char*` to repres
 
 I'm so tired. I don't know what is expected of me. This assignment has me so defeated.
 
+### 21 October
+
+Small stuff like needing to put `Person** pointers` in parentheses when dereferencing like so:
+```cpp
+(*pointers)->Print()
+```
+How am I supposed to know that? Nobody ever showed examples for this.
+
+### 24 October
+
+I think the whole `size` variable name being ambiguous might have to do with it already being a variable in the `std` namespace and that I'm `using namespace std`. The realization came after reading through c++ tutorial pages[^7].
+> Avoid using-directives (such as using namespace std;) at the top of your program or in header files. They violate the reason why namespaces were added in the first place.
+
+I just learned that I've been doing constructors wrong when I tried implementing inheritance!
+
+Instead of the following implementation in my `.cpp` file:
+
+```cpp
+Person::Person(string name, string address)
+{
+        this->name = name;
+        this->address = address;
+}
+```
+I should be implementing it like this:
+
+```cpp
+Person::Person(string name, string address) : name{name}, address{address} 
+{
+        // additional code can go here
+}
+```
+
+All the while the header file remains unchanged:
+
+```cpp
+class Person
+{
+        // stuff goes here...
+public:
+        Person(std::string name, std::string address);
+
+        // etc...
+}
+```
+
+And when you want to make a child class that builds on the Base constructor, you just call the Base constructor similarly, like so[^8]:
+
+```cpp
+PersonWithPhoneNumber::PersonWithPhoneNumber(string name, string address, string phoneNumber) : Person{name, address}, phoneNumber{phoneNumber}
+{
+    // additional code can go here
+}
+```
+This is different from how I did things in c#!
+```cs
+class Person
+{
+        Person(string name, string address)
+        {
+                this.name = name;
+                this.address = address;
+        }
+}
+```
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string
@@ -168,3 +234,5 @@ I'm so tired. I don't know what is expected of me. This assignment has me so def
 [^4]: https://cplusplus.com/forum/general/89373/#msg480130
 [^5]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f15-prefer-simple-and-conventional-ways-of-passing-information
 [^6]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#slstr3-use-zstring-or-czstring-to-refer-to-a-c-style-zero-terminated-sequence-of-characters
+[^7]: https://www.learncpp.com/cpp-tutorial/naming-collisions-and-an-introduction-to-namespaces/
+[^8]: https://www.learncpp.com/cpp-tutorial/constructors-and-initialization-of-derived-classes/

@@ -3,17 +3,27 @@
 
 using namespace std;
 
-Person::Person(string name, string address)
+Person::Person(string name, string address) : name{name}, address{address}
 {
-    this->name = name;
-    this->address = address;
+    // this->name = name;
+    // this->address = address;
 }
 
 Person::Person() {}
 
+PersonWithPhoneNumber::PersonWithPhoneNumber(string name, string address, string phoneNumber) : Person{name, address}, phoneNumber{phoneNumber}
+{
+    // this->phoneNumber = phoneNumber;
+}
+
 void Person::Print()
 {
     cout << name << ", " << address << endl;
+}
+
+void PersonWithPhoneNumber::Print()
+{
+    cout << name << ", " << address << ", " << phoneNumber << endl;
 }
 
 void Person::Wipe()
