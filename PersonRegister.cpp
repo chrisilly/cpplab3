@@ -6,10 +6,10 @@ using namespace std;
 
 const string divider = "----------------------------------\n";
 
-PersonRegister::PersonRegister(const int max)
+PersonRegister::PersonRegister(const int max) : size{max}
 {
     // Constructor code
-    this->size = max;
+    // this->size = max;
     personCount = 0;
 
     persons = new Person[max];
