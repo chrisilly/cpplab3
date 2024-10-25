@@ -31,6 +31,22 @@ void Person::Wipe()
     name = address = "";
 }
 
+/// @brief Checks whether another Person object contains identical data
+/// @param other The Person object with which to compare
+/// @return 
+bool Person::Matches(Person& other)
+{
+    if(this->getData() == other.getData())
+        return true;
+
+    return false;
+}
+
+Person::~Person()
+{
+    // destructor code here...
+}
+
 string Person::getName() { return name; }
 
 /// @return name and address in a single string

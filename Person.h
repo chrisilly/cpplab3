@@ -14,12 +14,13 @@ public:
     Person();
 
     void Wipe();
+    bool Matches(Person& other);
 
     virtual void Print();
     std::string getName();
     std::string getData();
 
-    // virtual ~Person();
+    virtual ~Person();
 };
 
 class PersonWithPhoneNumber: public Person
