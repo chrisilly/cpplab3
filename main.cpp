@@ -110,6 +110,8 @@ int main()
         else if(input == "test")
             Test(magnusArchives);
     }
+
+    delete personWithPhoneNumber;
 }
 
 void Program::Test(PersonRegister personRegister)
