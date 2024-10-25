@@ -261,6 +261,31 @@ persons = person; // this doesn't work because now the rest of the array element
 ```
 
 C-style arrays with the use of pointers seem absolutely horrendous and seem incredibly prone to failure. "Ideally it should be a const pointer if anything" is my first thought, because reassigning the pointer's address (as demonstrated above) will likely cause crashes as soon as you try to iterate through the array it's supposed to represent.
+
+Fun side-note when creating my `bool Person::Matches(Person* other)` method, I noticed that the `this` keyword actually returns a *pointer* to the selfobject.
+
+I ended up revamping how my `RemoveFromRegister` method worked, so that it actually removes entries in the register as opposed to removing whatever was sent in through parameter:
+
+```cpp
+void PersonRegister::RemoveFromRegister(Person* person)
+{
+    assert(person);
+
+    int removedCounter = 0;
+
+    for (Person* pointer = persons; pointer < persons + size; ++pointer)
+    {
+        // find a person in the actual register that matches the input parameter (and do not modify the input parameter)
+        if((*pointer).Matches(*person))
+        {
+            pointer->Wipe();
+            removedCounter++;
+        }
+    }
+    
+    cout << "Found and removed " << removedCounter << " person(s) matching: ";
+    person->Print();
+}
 ```
 
 <!--  -->
@@ -273,3 +298,4 @@ C-style arrays with the use of pointers seem absolutely horrendous and seem incr
 [^6]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#slstr3-use-zstring-or-czstring-to-refer-to-a-c-style-zero-terminated-sequence-of-characters
 [^7]: https://www.learncpp.com/cpp-tutorial/naming-collisions-and-an-introduction-to-namespaces/
 [^8]: https://www.learncpp.com/cpp-tutorial/constructors-and-initialization-of-derived-classes/
+[^9]: https://www.learncpp.com/cpp-tutorial/pass-by-address/

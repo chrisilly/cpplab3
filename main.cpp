@@ -10,6 +10,7 @@ using namespace Program;
 int maxSize = 10;
 string testName = "Chell";
 string testAddress = "Aperture";
+string testPhoneNumber = "+108 176 314 914";
 bool running = true;
 
 int main()
@@ -144,7 +145,7 @@ void Program::Test(PersonRegister personRegister)
     personRegister.Print();
     // remove existing person via SearchByName
     cout << "Removing " << victimName << " from the register...";
-    personRegister.RemoveFromRegister(personRegister.SearchByName(victimName));
+    personRegister.RemoveFromRegister(&victim);
     personRegister.Print();
 
     // remove non-existent person // this doesn't work like this:
@@ -153,7 +154,7 @@ void Program::Test(PersonRegister personRegister)
     // personRegister.Print();
     // remove non-existent person via SearchByName
     cout << "Removing " << victimName << " from the register... (again)";
-    personRegister.RemoveFromRegister(personRegister.SearchByName(victimName));
+    personRegister.RemoveFromRegister(&victim);
     personRegister.Print();
 
     // clear register

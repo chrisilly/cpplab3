@@ -69,12 +69,23 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
     return false;
 }
 
-void PersonRegister::RemoveFromRegister(Person *person)
+void PersonRegister::RemoveFromRegister(Person* person)
 {
-    if(person != nullptr)
-        person->Wipe();
-    else
-        cout << "Cannot remove nullptr" << endl;
+    assert(person);
+
+    int removedCounter = 0;
+
+    for (Person* pointer = persons; pointer < persons + size; ++pointer)
+    {
+        if((*pointer).Matches(*person))
+        {
+            pointer->Wipe();
+            removedCounter++;
+        }
+    }
+    
+    cout << "Found and removed " << removedCounter << " person(s) matching: ";
+    person->Print();
 }
 
 Person* PersonRegister::SearchByName(const string &name) const
