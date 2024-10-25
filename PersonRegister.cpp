@@ -1,6 +1,7 @@
 #include "personregister.h"
 
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -17,14 +18,19 @@ PersonRegister::PersonRegister(const int max) : size{max}
         persons[i] = Person("undefined", "undefined");
 }
 
-bool PersonRegister::AddToRegister(const Person* person)
+bool PersonRegister::AddToRegister(const Person* const person)
 {
-    if(person == nullptr) return false;
+    // assert evaluates a bool
+    // (A pointer can implicitly convert to a bool based on whether it's a nullptr or not)
+    assert(person); // fail the program if person is nullptr (std::abort)
+
+    // is person nullptr? (Error handling for production mode)
+    // if(!person) return false;
 
     // Is the personRegister full?
     if(personCount >= size)
     {
-        // persons -= personCount;
+        // Start from the beginning of the register
         personCount = 0;
     }
 
@@ -34,7 +40,7 @@ bool PersonRegister::AddToRegister(const Person* person)
     return true;
 }
 
-bool PersonRegister::AddToRegister(const Person person)
+bool PersonRegister::AddToRegisterByReference(const Person& person)
 {
     // Is the personRegister full?
     if(personCount >= size)
@@ -126,8 +132,7 @@ void PersonRegister::Print()
 
     for (Person *pointer = persons; pointer < persons+size; ++pointer)
     {
-        if(pointer == nullptr)
-            throw new exception("Tried printing nullptr.");
+        assert(pointer);
         
         pointer->Print();
     }

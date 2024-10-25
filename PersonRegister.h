@@ -15,9 +15,9 @@ class PersonRegister
 
     PersonRegister(const int max);
 
-    bool AddToRegister(const Person person);
+    bool AddToRegisterByReference(const Person& person);
     bool AddToRegister(const std::string &name, const std::string &address);
-    bool AddToRegister(const Person* person);
+    bool AddToRegister(const Person* const person);
     void RemoveFromRegister(Person *person);
     Person *SearchByName(const std::string &name) const;
     Person* SearchByAny(const std::string& searchTerm, Person* startOnNext) const;

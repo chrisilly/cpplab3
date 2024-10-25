@@ -226,6 +226,43 @@ class Person
 }
 ```
 
+### 25 October
+
+So, I've had issues this whole time with the passing-by-address requirement of the assignment. I've since learned that that's what it's called: passing by address[^9].
+
+```cpp
+bool PersonRegister::AddToRegisterByAddress(Person* person)
+{
+        assert(person);
+
+        // Is the register full?
+        if(personCount >= size)
+        {
+                cout << "Register is full; add operation unsuccessful." << endl;
+                return false;
+        }
+
+        // add the person
+        persons[personCount++] = *person; // this doesn't work because altering person elsewhere after this does not alter what we just assigned to *persons 
+
+        // keep track of the register occupancy count
+        personCount++;
+
+        return true;
+}
+```
+
+```cpp
+*persons = *person; // same problem; altering person elsewhere after this does not alter what we just assigned to *persons
+```
+
+```cpp
+persons = person; // this doesn't work because now the rest of the array elements are not near where the persons pointer is pointing after assignment
+```
+
+C-style arrays with the use of pointers seem absolutely horrendous and seem incredibly prone to failure. "Ideally it should be a const pointer if anything" is my first thought, because reassigning the pointer's address (as demonstrated above) will likely cause crashes as soon as you try to iterate through the array it's supposed to represent.
+```
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string

@@ -19,8 +19,8 @@ int main()
     Person person(testName, testAddress);
     person.Print();
 
-    PersonWithPhoneNumber personWithPhoneNumber("testName", "testAddress", "0763149145");
-    personWithPhoneNumber.Print();
+    PersonWithPhoneNumber* personWithPhoneNumber = new PersonWithPhoneNumber(testName, testAddress, testPhoneNumber);
+    personWithPhoneNumber->Print();
 
     PersonRegister magnusArchives(maxSize);
     Program::ReadRegister(magnusArchives, "PersonExempel.txt");
@@ -88,7 +88,7 @@ int main()
             cout << "Enter address: "; getline(cin, address);
             Person newPerson(name, address);
             
-            magnusArchives.AddToRegister(newPerson);
+            magnusArchives.AddToRegister(&newPerson);
             newPerson.Print();
         }
         else if(input == "remove")
@@ -131,7 +131,7 @@ void Program::Test(PersonRegister personRegister)
     cout << "Adding " << name << ", " << address << " to the register..." << endl;
     personRegister.AddToRegister(&dummy);
     cout << "Adding " << victimName << ", " << victimAddress << " to the register..." << endl;
-    personRegister.AddToRegister(victim);
+    personRegister.AddToRegister(&victim);
     personRegister.Print();
 
     // search for existent person
