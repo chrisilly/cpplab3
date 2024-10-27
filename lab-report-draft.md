@@ -288,6 +288,67 @@ void PersonRegister::RemoveFromRegister(Person* person)
 }
 ```
 
+### 27 October
+
+Okay, so I think I've basically filled all the requirements for the assignment, except the code checking for and printing out memory leaks. I'll address that soon.
+
+First, there are some issues in my program that I might not fix, and they appear when calling the `SearchByAny` method, and when using the `RemoveFromRegister` method.
+
+The issue with `SearchByAny` is not necessarily with how it's coded, but in how I'm testing it. In my following implementation, the program always tries to get three search results—no more, no less. By passing in `nullptr` we are telling the method to search the register from the beginning. For `searchResult2` we tell it to start searching after the previous search result (`searchResult1`). If there are no more matches, `SearchByAny` returns a `nullptr`. See the problem?
+
+(If there is only one match for a search term, both `searchResult1` and `searchResult3` will return the same result, since `searchResult2` becomes `nullptr`—since it couldn't find more matches—which means that the third search again starts from the beginning of the register.)
+
+```cpp
+Person* searchResult1 = magnusArchives.SearchByAny(searchTerm, nullptr);
+Person* searchResult2 = magnusArchives.SearchByAny(searchTerm, searchResult1);
+Person* searchResult3 = magnusArchives.SearchByAny(searchTerm, searchResult2);
+
+if(searchResult1 != nullptr) searchResult1->Print();
+if(searchResult2 != nullptr) searchResult2->Print();
+if(searchResult3 != nullptr) searchResult3->Print();
+```
+
+In my `RemoveFromRegister` method, I go through all persons in the register and wipe each entry that matches the data of the inputted `person`. Except when I wipe the—
+
+I think it's because the passed in person might be the exact same as `*pointer` it `Matches` with, so when we wipe `pointer`, we're wiping `person`, and from then on we're comparing the rest of the register with a wiped entry. This happens in execution because we're passing in a pointer returned from the `SearchByName` method, which yoinks a person straight from the register before sending it into `RemoveFromRegister`.
+
+```cpp
+for (Person* pointer = persons; pointer < persons + size; ++pointer)
+{
+        if((*pointer).Matches(*person))
+        {
+                pointer->Wipe();
+                removedCounter++;
+        }
+}
+
+cout << "Found and removed " << removedCounter << " person(s) matching: ";
+person->Print();
+```
+
+> [!WARNING]
+> **Update:** calling `PersonRegister::Print()` after running `Test()` causes the access violation error > I ran into earlier when running `Test()` twice.
+
+My only idea is that i'm iterating incorrectly through the array; that it's some indexing error.
+```cpp
+// PersonRegister::Print()
+for (Person *pointer = persons; pointer < persons+size; ++pointer) // indexing error here somewhere?
+{
+        assert(pointer);
+
+        pointer->Print();
+}
+```
+
+Actually... when running `test` and then `quit`, I get an access violation error in the PersonRegister deconstructor:
+
+```cpp
+PersonRegister::~PersonRegister()
+{
+        delete[] persons; // Access violation error here on quit after `test` 😮
+}
+```
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string
