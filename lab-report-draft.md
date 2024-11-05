@@ -349,6 +349,26 @@ PersonRegister::~PersonRegister()
 }
 ```
 
+## Requirement: Memory Management
+
+### 6 November 
+My memory debug dumps look like this:
+```
+Detected memory leaks!
+Dumping objects ->
+{363} normal block at 0x0100CA80, 32 bytes long.
+ Data: <                > 57 69 7A 61 72 64 20 54 6F 77 65 72 20 34 2C 20
+``` 
+When I want them to look like this:
+```
+Detected memory leaks!
+Dumping objects ->
+c:\users\username\documents\projects\leaktest\leaktest.cpp(20) : {18}
+normal block at 0x00780E80, 64 bytes long.
+ Data: <                > CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD
+...
+```
+Microsoft documentation says that simply defining `_CRTDBG_MAP_ALLOC` is enough to get the latter instead of the former. This is not my case, and I don't know why. I want to die.
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string
