@@ -29,6 +29,7 @@
             "command": "cl.exe",
             "args": [
                 "/Zi",
+                "/MDd",
                 "/EHsc",
                 "/nologo",
                 "/Fe:",

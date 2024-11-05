@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include "personregister.h"
 #include "person.h"
 #include "main.h"
@@ -15,6 +19,8 @@ bool running = true;
 
 int main()
 {
+    // _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+    
     running = true;
 
     Person person(testName, testAddress);
@@ -113,6 +119,13 @@ int main()
     }
 
     delete personWithPhoneNumber;
+
+    cout << "Exiting program..." << endl;
+
+    _CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_DEBUG );
+    _CrtDumpMemoryLeaks();
+
+    // return 0;
 }
 
 void Program::Test(PersonRegister personRegister)
