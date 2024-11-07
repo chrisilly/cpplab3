@@ -27,5 +27,9 @@ class PersonRegister
     void PlagueOfDeath();
 
     ~PersonRegister();
+
+    //Assignment 4
+    Person* begin();
+    Person* end();
 };
 #endif

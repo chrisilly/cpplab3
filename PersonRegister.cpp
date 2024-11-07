@@ -162,3 +162,8 @@ PersonRegister::~PersonRegister()
 {
     delete[] persons;
 }
+
+// Assignment 4
+
+Person* PersonRegister::begin() { return persons; }
+Person* PersonRegister::end() { return persons + personCount; }
