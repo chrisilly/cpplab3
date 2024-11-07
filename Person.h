@@ -21,6 +21,10 @@ public:
     std::string getData();
 
     virtual ~Person();
+
+    // Assignment 4
+
+    bool operator<(const Person& that);
 };
 
 class PersonWithPhoneNumber: public Person

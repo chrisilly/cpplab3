@@ -51,3 +51,10 @@ string Person::getName() { return name; }
 
 /// @return name and address in a single string
 string Person::getData() { return name + " " + address; }
+
+// Assignment 4
+
+bool Person::operator<(const Person& that)
+{
+    return this->name < that.name;
+}
