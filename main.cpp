@@ -28,6 +28,8 @@ int main()
 
     RemovePersonTest(magnusArchives);
 
+    SearchByNameTest(magnusArchives);
+
     cout << "Exiting program..." << endl;
 
     // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
@@ -54,6 +56,29 @@ void RemovePersonTest(PersonRegister &personRegister)
     personRegister.RemoveFromRegister(personRegister.begin());
     // Print
     personRegister.Print();
+}
+
+void SearchByNameTest(PersonRegister &personRegister)
+{
+    // Search for non-existing
+    personRegister.SearchByName("Chell");
+
+    // Add new person
+    personRegister.AddToRegister("Chell", "Aperture");
+    personRegister.Print();
+
+    // Search for existing person
+    personRegister.SearchByName("Chell");
+}
+
+void SearchByAnyTest(PersonRegister &personRegister)
+{
+
+}
+
+void EmptyRegisterTest(PersonRegister &personRegister)
+{
+
 }
 
 bool ReadRegister(PersonRegister &personRegister, string fileName)
