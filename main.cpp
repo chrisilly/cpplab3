@@ -36,7 +36,7 @@ int main()
     // return 0;
 }
 
-void RemovePersonTest(PersonRegister personRegister)
+void RemovePersonTest(PersonRegister &personRegister)
 {
     // Add dummy person
     Person dummy("Remove Me", "Deletemelane 12, 000 00 KILLME");

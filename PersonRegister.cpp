@@ -150,7 +150,7 @@ void PersonRegister::EmptyRegister()
 
 PersonRegister::~PersonRegister()
 {
-    // delete[] persons;
+    delete[] persons;
 }
 
 // Assignment 4

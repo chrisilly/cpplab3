@@ -369,6 +369,51 @@ normal block at 0x00780E80, 64 bytes long.
 ...
 ```
 Microsoft documentation says that simply defining `_CRTDBG_MAP_ALLOC` is enough to get the latter instead of the former. This is not my case, and I don't know why. I want to die.
+
+# Issues
+
+**BREAKTHROUGH!**
+
+Running the following `main` method made my program crash on exit when it calls `delete[] persons` in the PersonRegister destructor.
+
+```cpp
+int main()
+{
+    // _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+
+    PersonRegister magnusArchives(maxSize);
+    ReadRegister(magnusArchives, "PersonExempel.txt");
+    magnusArchives.Print();
+
+    RemovePersonTest(magnusArchives);
+
+    cout << "Exiting program..." << endl;
+
+    // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
+
+    _CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_DEBUG );
+    _CrtDumpMemoryLeaks();
+
+    // return 0;
+}
+```
+I noticed that when I commented out `RemovePersonTest`, the crashes stopped, *even when there was no code in `RemovePersonTest`!*
+```cpp
+void RemovePersonTest(PersonRegister personRegister)
+{
+    // ... calling this will lead to a crash on exit
+}
+```
+However, **passing by reference** solves the issue!
+```cpp
+void RemovePersonTest(PersonRegister& personRegister)
+{
+    // ... this will work fine!!
+}
+```
+My hypothesis is that since passing by value generates a copy of the personRegister, it'll end up calling the destructor twice, trying to delete the same `Person* persons` c-array! That's why we get the access violation error! That's what I suspect at least.
+
+
 <!--  -->
 
 [^1]: https://stackoverflow.com/questions/10589355/error-c2061-syntax-error-identifier-string
