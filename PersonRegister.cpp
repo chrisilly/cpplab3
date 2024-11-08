@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include "personregister.h"
 
 #include <iostream>
@@ -69,23 +73,20 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
     return false;
 }
 
+/// @brief 
+/// @param person this should point to the object that's meant to be removed from the register
 void PersonRegister::RemoveFromRegister(Person* person)
 {
     assert(person);
 
-    int removedCounter = 0;
-
     for (Person* pointer = persons; pointer < persons + size; ++pointer)
     {
-        if((*pointer).Matches(*person))
+        if(pointer == person)
         {
-            pointer->Wipe();
-            removedCounter++;
+            cout << "Found and removed "; pointer->Print();
+            // std::remove(pointer, pointer + size, *pointer);
         }
     }
-    
-    cout << "Found and removed " << removedCounter << " person(s) matching: ";
-    person->Print();
 }
 
 Person* PersonRegister::SearchByName(const string &name) const
@@ -94,10 +95,6 @@ Person* PersonRegister::SearchByName(const string &name) const
 
     for (Person *pointer = persons; pointer < persons + size; ++pointer)
     {
-        // string currentName = pointer->getName();
-        // cout << "currentName: " << currentName << endl;
-        // cout << "current pointer->getName(): " << pointer->getName() << endl;
-
         if(pointer->getName() == name)
         {
             cout << "Person " << name << " found." << endl;
@@ -155,7 +152,9 @@ void PersonRegister::Print()
 void PersonRegister::PlagueOfDeath()
 {
     for (Person *pointer = persons; pointer < persons+size; ++pointer)
-        pointer->Wipe();
+    {
+        // removal logic here...
+    }
 }
 
 PersonRegister::~PersonRegister()

@@ -1,20 +1,17 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 #include "person.h"
 
 using namespace std;
 
-Person::Person(string name, string address) : name{name}, address{address}
-{
-    // this->name = name;
-    // this->address = address;
-}
+Person::Person(string name, string address) : name{name}, address{address} {}
 
 Person::Person() {}
 
-PersonWithPhoneNumber::PersonWithPhoneNumber(string name, string address, string phoneNumber) : Person{name, address}, phoneNumber{phoneNumber}
-{
-    // this->phoneNumber = phoneNumber;
-}
+PersonWithPhoneNumber::PersonWithPhoneNumber(string name, string address, string phoneNumber) : Person{name, address}, phoneNumber{phoneNumber} {}
 
 void Person::Print()
 {
@@ -24,11 +21,6 @@ void Person::Print()
 void PersonWithPhoneNumber::Print()
 {
     cout << name << ", " << address << ", " << phoneNumber << endl;
-}
-
-void Person::Wipe()
-{
-    name = address = "";
 }
 
 /// @brief Checks whether another Person object contains identical data
