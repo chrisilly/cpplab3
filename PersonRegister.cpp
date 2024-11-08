@@ -58,8 +58,8 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
 {
     if(personCount >= size)
     {
-        // persons -= personCount;
-        personCount = 0;
+        cout << "Failed to add new person: Person register is full." << endl;
+        return false;
     }
 
     persons[personCount++] = Person(name, address);
