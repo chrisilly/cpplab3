@@ -9,7 +9,6 @@
 #include <fstream>
 
 using namespace std;
-using namespace Program;
 
 int maxSize = 10;
 string testName = "Chell";
@@ -22,7 +21,7 @@ int main()
     // _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
     PersonRegister magnusArchives(maxSize);
-    Program::ReadRegister(magnusArchives, "PersonExempel.txt");
+    ReadRegister(magnusArchives, "PersonExempel.txt");
     magnusArchives.Print();
 
     RemovePersonTest(magnusArchives);
@@ -53,7 +52,7 @@ void RemovePersonTest(PersonRegister personRegister)
     cout << "Removed person "; dummy.Print();
 }
 
-bool Program::ReadRegister(PersonRegister &personRegister, string fileName)
+bool ReadRegister(PersonRegister &personRegister, string fileName)
 {
     string line;
     ifstream myfile(fileName);
