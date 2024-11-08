@@ -32,13 +32,13 @@ int main()
 
     SearchByAnyTest(magnusArchives);
 
-    // EmptyRegisterTest(magnusArchives);
-
     Person* user = new PersonWithPhoneNumber("name", "address", "phone number");
     user->Print();
 
     magnusArchives.AddToRegister(user);
     magnusArchives.Print();
+
+    EmptyRegisterTest(magnusArchives);
 
     cout << "Exiting program..." << endl;
 
