@@ -13,7 +13,7 @@ class PersonRegister
 
     public:
 
-    PersonRegister(const int max);
+    PersonRegister(const int capacity);
 
     bool AddToRegisterByReference(const Person& person);
     bool AddToRegister(const std::string &name, const std::string &address);
@@ -23,8 +23,7 @@ class PersonRegister
     Person* SearchByAny(const std::string& searchTerm, Person* startOnNext) const;
     void Print();
 
-    /// @brief Empties and deletes all Person Registry content
-    void PlagueOfDeath();
+    void EmptyRegister();
 
     ~PersonRegister();
 

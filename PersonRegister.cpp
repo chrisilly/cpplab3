@@ -11,15 +11,13 @@ using namespace std;
 
 const string divider = "----------------------------------\n";
 
-PersonRegister::PersonRegister(const int max) : size{max}
+PersonRegister::PersonRegister(const int capacity) : size{capacity}
 {
     // Constructor code
     // this->size = max;
     personCount = 0;
 
-    persons = new Person[max];
-    for (int i = 0; i < max; i++)
-        persons[i] = Person("undefined", "undefined");
+    persons = new Person[capacity];
 }
 
 bool PersonRegister::AddToRegister(const Person* const person)
@@ -34,8 +32,8 @@ bool PersonRegister::AddToRegister(const Person* const person)
     // Is the personRegister full?
     if(personCount >= size)
     {
-        // Start from the beginning of the register
-        personCount = 0;
+        cout << "Failed to add new person: Person register is full." << endl;
+        return false;
     }
 
     // Add new person
@@ -69,8 +67,6 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
 
     persons[personCount++] = Person(name, address);
     return true;
-
-    return false;
 }
 
 /// @brief 
@@ -91,8 +87,6 @@ void PersonRegister::RemoveFromRegister(Person* person)
 
 Person* PersonRegister::SearchByName(const string &name) const
 {
-    Person* target;
-
     for (Person *pointer = persons; pointer < persons + size; ++pointer)
     {
         if(pointer->getName() == name)
@@ -148,8 +142,8 @@ void PersonRegister::Print()
     cout << divider;
 }
 
-/// @brief Clears the register; empties it.
-void PersonRegister::PlagueOfDeath()
+/// @brief Removes all persons in the Person Register
+void PersonRegister::EmptyRegister()
 {
     for (Person *pointer = persons; pointer < persons+size; ++pointer)
     {
@@ -159,7 +153,7 @@ void PersonRegister::PlagueOfDeath()
 
 PersonRegister::~PersonRegister()
 {
-    delete[] persons;
+    // delete[] persons;
 }
 
 // Assignment 4
