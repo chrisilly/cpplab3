@@ -11,9 +11,9 @@ using namespace std;
 
 const string divider = "----------------------------------\n";
 
-PersonRegister::PersonRegister(const int capacity) : size{capacity}
+PersonRegister::PersonRegister(const int capacity) : capacity{capacity}
 {
-    personCount = 0;
+    size = 0;
     persons = new Person[capacity];
 }
 
@@ -27,14 +27,14 @@ bool PersonRegister::AddToRegister(const Person* const person)
     // if(!person) return false;
 
     // Is the personRegister full?
-    if(personCount >= size)
+    if(size >= capacity)
     {
         cout << "Failed to add new person: Person register is full." << endl;
         return false;
     }
 
     // Add new person
-    persons[personCount++] = *person;
+    persons[size++] = *person;
 
     return true;
 }
@@ -42,27 +42,27 @@ bool PersonRegister::AddToRegister(const Person* const person)
 bool PersonRegister::AddToRegisterByReference(const Person& person)
 {
     // Is the personRegister full?
-    if(personCount >= size)
+    if(size >= capacity)
     {
-        // persons -= personCount;
-        personCount = 0;
+        // persons -= size;
+        size = 0;
     }
 
     // Add new person
-    persons[personCount++] = person;
+    persons[size++] = person;
 
     return true;
 }
 
 bool PersonRegister::AddToRegister(const string &name, const string &address)
 {
-    if(personCount >= size)
+    if(size >= capacity)
     {
         cout << "Failed to add new person: Person register is full." << endl;
         return false;
     }
 
-    persons[personCount++] = Person(name, address);
+    persons[size++] = Person(name, address);
     return true;
 }
 
@@ -72,16 +72,16 @@ void PersonRegister::RemoveFromRegister(Person* target)
 {
     assert(target);
 
-    for(Person* pointer = persons; pointer != persons + personCount; ++pointer)
+    for(Person* pointer = persons; pointer != persons + size; ++pointer)
     {
         if(pointer == target)
         {
             // The target is in the register! Now remove it.
             cout << "Found and removed "; pointer->Print();  
 
-            std::remove(persons, persons + personCount, target);
+            std::remove(persons, persons + size, target);
 
-            personCount--; // Only run this if someone was actually removed
+            size--;
             return;
         }
     }
@@ -91,7 +91,7 @@ void PersonRegister::RemoveFromRegister(Person* target)
 
 Person* PersonRegister::SearchByName(const string &name) const
 {
-    for (Person *pointer = persons; pointer != persons + personCount; ++pointer)
+    for (Person *pointer = persons; pointer != persons + size; ++pointer)
     {
         if(pointer->getName() == name)
         {
@@ -115,7 +115,7 @@ Person* PersonRegister::SearchByAny(const string& searchTerm, Person* startOnNex
     else
         startOnNextData = startOnNext->getData();
 
-    for (Person* pointer = persons; pointer != persons + personCount; ++pointer)
+    for (Person* pointer = persons; pointer != persons + size; ++pointer)
     {
         personData = pointer->getData();
 
@@ -132,11 +132,12 @@ Person* PersonRegister::SearchByAny(const string& searchTerm, Person* startOnNex
     return nullptr;
 }
 
+/// @brief Prints all valid persons stored and tracked in the register
 void PersonRegister::Print()
 {
     cout << divider;
 
-    for (Person *pointer = persons; pointer != persons + personCount; ++pointer)
+    for (Person *pointer = persons; pointer != persons + size; ++pointer)
     {
         assert(pointer);
         
@@ -146,12 +147,25 @@ void PersonRegister::Print()
     cout << divider;
 }
 
+/// @brief Prints all potential/lingering content in the person register
+/// DANGER! MAY RESULT IN ACCESS VIOLATION AND MORE!
+void PersonRegister::PrintCapacity()
+{
+    cout << "ALL PERSON REGISTER CONTENT, VALID AND OTHERWISE:" << endl;
+    for (Person* pointer = persons; pointer != persons + capacity; ++pointer)
+    {
+        assert(pointer);
+        pointer->Print();
+    }
+    cout << divider;
+}
+
 /// @brief Removes all persons in the Person Register
 void PersonRegister::EmptyRegister()
 {
-    for (Person *pointer = persons; pointer != persons + personCount; ++pointer)
+    while (size > 0)
     {
-        RemoveFromRegister(pointer);
+        RemoveFromRegister(begin());
     }
 }
 
@@ -163,4 +177,4 @@ PersonRegister::~PersonRegister()
 // Assignment 4
 
 Person* PersonRegister::begin() { return persons; }
-Person* PersonRegister::end() { return persons + personCount; }
+Person* PersonRegister::end() { return persons + size; }

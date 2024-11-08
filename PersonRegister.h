@@ -8,8 +8,12 @@
 class PersonRegister
 {
     Person *persons;
-    int personCount;
+
+    /// @brief How many slots are OCCUPIED in the register
     int size;
+
+    /// @brief The maximum amount of slots in the register
+    int capacity;
 
     public:
 
@@ -22,6 +26,7 @@ class PersonRegister
     Person *SearchByName(const std::string &name) const;
     Person* SearchByAny(const std::string& searchTerm, Person* startOnNext) const;
     void Print();
+    void PrintCapacity();
 
     void EmptyRegister();
 

@@ -32,6 +32,8 @@ int main()
 
     SearchByAnyTest(magnusArchives);
 
+    EmptyRegisterTest(magnusArchives);
+
     cout << "Exiting program..." << endl;
 
     // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
@@ -87,7 +89,13 @@ void SearchByAnyTest(PersonRegister &personRegister)
 
 void EmptyRegisterTest(PersonRegister &personRegister)
 {
+    cout << "Emptying register." << endl;
+    personRegister.EmptyRegister();
+    personRegister.Print();
 
+    // What's left in `persons` when everything has been `std::remove`d?
+    // personRegister.PrintCapacity();
+    // A bunch of copies of the last element added, apparently, plus empty data!
 }
 
 bool ReadRegister(PersonRegister &personRegister, string fileName)
