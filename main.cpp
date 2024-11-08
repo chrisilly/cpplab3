@@ -30,6 +30,8 @@ int main()
 
     SearchByNameTest(magnusArchives);
 
+    SearchByAnyTest(magnusArchives);
+
     cout << "Exiting program..." << endl;
 
     // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
@@ -73,7 +75,14 @@ void SearchByNameTest(PersonRegister &personRegister)
 
 void SearchByAnyTest(PersonRegister &personRegister)
 {
-
+    string searchTerm = "el";
+    cout << "Freesearch results by search term " << searchTerm << ": " << endl;
+    Person* searchResult1 = personRegister.SearchByAny(searchTerm, nullptr);
+    Person* searchResult2 = personRegister.SearchByAny(searchTerm, searchResult1);
+    Person* searchResult3 = personRegister.SearchByAny(searchTerm, searchResult2);
+    if(searchResult1) searchResult1->Print();
+    if(searchResult2) searchResult2->Print();
+    if(searchResult3) searchResult3->Print();
 }
 
 void EmptyRegisterTest(PersonRegister &personRegister)
