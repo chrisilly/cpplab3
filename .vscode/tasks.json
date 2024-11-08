@@ -29,11 +29,13 @@
             "command": "cl.exe",
             "args": [
                 "/Zi",
-                "/MDd",
                 "/EHsc",
+                "/W4",
+                "/D_DEBUG",
+                "/MDd",
                 "/nologo",
                 "/Fe:",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "${fileDirname}\\main.exe",
                 "${fileDirname}\\*.cpp"
             ],
             "problemMatcher": ["$msCompile"],
