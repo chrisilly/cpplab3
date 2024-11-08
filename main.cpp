@@ -32,10 +32,17 @@ int main()
 
     SearchByAnyTest(magnusArchives);
 
-    EmptyRegisterTest(magnusArchives);
+    // EmptyRegisterTest(magnusArchives);
+
+    Person* user = new PersonWithPhoneNumber("name", "address", "phone number");
+    user->Print();
+
+    magnusArchives.AddToRegister(user);
+    magnusArchives.Print();
 
     cout << "Exiting program..." << endl;
 
+    delete user;
     // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
 
     _CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_DEBUG );
