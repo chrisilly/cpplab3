@@ -13,10 +13,7 @@ const string divider = "----------------------------------\n";
 
 PersonRegister::PersonRegister(const int capacity) : size{capacity}
 {
-    // Constructor code
-    // this->size = max;
     personCount = 0;
-
     persons = new Person[capacity];
 }
 
@@ -75,7 +72,7 @@ void PersonRegister::RemoveFromRegister(Person* person)
 {
     assert(person);
 
-    for (Person* pointer = persons; pointer < persons + size; ++pointer)
+    for (Person* pointer = persons; pointer != persons + personCount; ++pointer)
     {
         if(pointer == person)
         {
@@ -87,7 +84,7 @@ void PersonRegister::RemoveFromRegister(Person* person)
 
 Person* PersonRegister::SearchByName(const string &name) const
 {
-    for (Person *pointer = persons; pointer < persons + size; ++pointer)
+    for (Person *pointer = persons; pointer != persons + personCount; ++pointer)
     {
         if(pointer->getName() == name)
         {
@@ -111,7 +108,7 @@ Person* PersonRegister::SearchByAny(const string& searchTerm, Person* startOnNex
     else
         startOnNextData = startOnNext->getData();
 
-    for (Person* pointer = persons; pointer < persons+size; ++pointer)
+    for (Person* pointer = persons; pointer != persons + personCount; ++pointer)
     {
         personData = pointer->getData();
 
@@ -132,7 +129,7 @@ void PersonRegister::Print()
 {
     cout << divider;
 
-    for (Person *pointer = persons; pointer < persons+size; ++pointer)
+    for (Person *pointer = persons; pointer != persons + personCount; ++pointer)
     {
         assert(pointer);
         
@@ -145,9 +142,9 @@ void PersonRegister::Print()
 /// @brief Removes all persons in the Person Register
 void PersonRegister::EmptyRegister()
 {
-    for (Person *pointer = persons; pointer < persons+size; ++pointer)
+    for (Person *pointer = persons; pointer != persons + personCount; ++pointer)
     {
-        // removal logic here...
+        RemoveFromRegister(pointer);
     }
 }
 
