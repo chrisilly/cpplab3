@@ -3,6 +3,8 @@
 
 #include "PersonRegister.h"
 
+void RemovePersonTest(PersonRegister personRegister);
+
 namespace Program
 {
 

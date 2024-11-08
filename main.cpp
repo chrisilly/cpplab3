@@ -21,25 +21,36 @@ int main()
 {
     // _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
-    Person person(testName, testAddress);
-    person.Print();
-
-    PersonWithPhoneNumber* personWithPhoneNumber = new PersonWithPhoneNumber(testName, testAddress, testPhoneNumber);
-    personWithPhoneNumber->Print();
-
     PersonRegister magnusArchives(maxSize);
     Program::ReadRegister(magnusArchives, "PersonExempel.txt");
     magnusArchives.Print();
 
-    delete personWithPhoneNumber;
-    // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
+    RemovePersonTest(magnusArchives);
 
     cout << "Exiting program..." << endl;
+
+    // magnusArchives.~PersonRegister(); // You're not supposed to call destructors explicitly, says stackoverflow
 
     _CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_DEBUG );
     _CrtDumpMemoryLeaks();
 
     // return 0;
+}
+
+void RemovePersonTest(PersonRegister personRegister)
+{
+    // Add dummy person
+    Person dummy("Remove Me", "Deletemelane 12, 000 00 KILLME");
+    personRegister.AddToRegister(&dummy);
+    // Print
+    personRegister.Print();
+
+    // Remove person
+    personRegister.RemoveFromRegister(&dummy);
+    // Print
+    personRegister.Print();
+
+    cout << "Removed person "; dummy.Print();
 }
 
 bool Program::ReadRegister(PersonRegister &personRegister, string fileName)
