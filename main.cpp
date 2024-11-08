@@ -24,6 +24,8 @@ int main()
     ReadRegister(magnusArchives, "PersonExempel.txt");
     magnusArchives.Print();
 
+    AddPersonTest(magnusArchives);
+
     RemovePersonTest(magnusArchives);
 
     cout << "Exiting program..." << endl;
@@ -36,20 +38,22 @@ int main()
     // return 0;
 }
 
-void RemovePersonTest(PersonRegister &personRegister)
+void AddPersonTest(PersonRegister &personRegister)
 {
     // Add dummy person
-    Person dummy("Remove Me", "Deletemelane 12, 000 00 KILLME");
+    Person dummy("YOUR NEW ROOMMATE", "Your apartment");
+    cout << "Attempting to add new person to register: "; dummy.Print();
     personRegister.AddToRegister(&dummy);
     // Print
     personRegister.Print();
+}
 
+void RemovePersonTest(PersonRegister &personRegister)
+{
     // Remove person
-    personRegister.RemoveFromRegister(&dummy);
+    personRegister.RemoveFromRegister(personRegister.begin());
     // Print
     personRegister.Print();
-
-    cout << "Removed person "; dummy.Print();
 }
 
 bool ReadRegister(PersonRegister &personRegister, string fileName)

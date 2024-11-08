@@ -68,18 +68,25 @@ bool PersonRegister::AddToRegister(const string &name, const string &address)
 
 /// @brief 
 /// @param person this should point to the object that's meant to be removed from the register
-void PersonRegister::RemoveFromRegister(Person* person)
+void PersonRegister::RemoveFromRegister(Person* target)
 {
-    assert(person);
+    assert(target);
 
-    for (Person* pointer = persons; pointer != persons + personCount; ++pointer)
+    for(Person* pointer = persons; pointer != persons + personCount; ++pointer)
     {
-        if(pointer == person)
+        if(pointer == target)
         {
-            cout << "Found and removed "; pointer->Print();
-            // std::remove(pointer, pointer + size, *pointer);
+            // The target is in the register! Now remove it.
+            cout << "Found and removed "; pointer->Print();  
+
+            std::remove(persons, persons + personCount, target);
+
+            personCount--; // Only run this if someone was actually removed
+            return;
         }
     }
+
+    cout << "Failed to remove person from register: Person is not already in register: "; target->Print();
 }
 
 Person* PersonRegister::SearchByName(const string &name) const

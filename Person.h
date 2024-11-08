@@ -22,6 +22,9 @@ public:
 
     virtual ~Person();
 
+    bool Person::operator==(const Person* other);
+    // void Person::operator=(const Person* const other);
+
     // Assignment 4
 
     bool operator<(const Person& that);

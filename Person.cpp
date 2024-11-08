@@ -44,6 +44,16 @@ string Person::getName() { return name; }
 /// @return name and address in a single string
 string Person::getData() { return name + " " + address; }
 
+/// @brief Tells you whether another Person object's memory address matches this one's.
+/// @param other 
+/// @return 
+bool Person::operator==(const Person* other) { return this == other; }
+
+// void Person::operator=(const Person* const other)
+// {
+        
+// }
+
 // Assignment 4
 
 bool Person::operator<(const Person& that)
