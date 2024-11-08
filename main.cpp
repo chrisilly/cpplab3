@@ -66,8 +66,8 @@ bool Program::ReadRegister(PersonRegister &personRegister, string fileName)
             string name(line);
             string address;
             getline(myfile, address);
-            // Person entry(name, address);
-            personRegister.AddToRegister(&Person(name, address));
+            Person entry(name, address);
+            personRegister.AddToRegister(&entry);
         }
         myfile.close();
         return true;
